@@ -4,6 +4,7 @@ require("./model/dbcon");
 const EmpDetails = require("./model/schema");
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
+const jwt = require("jsonwebtoken");
 
 app.set("view engine", "hbs");
 
@@ -59,6 +60,8 @@ app.post("/register", urlencodedParser, async(req, res) => {
     data.save((err, doc) => {
         if (!err) {
             console.log("Inserted");
+            // generate token
+            generateToken(doc);
             res.redirect("/?i=true");
         } else {
             res.redirect("/?i=false");
@@ -67,7 +70,7 @@ app.post("/register", urlencodedParser, async(req, res) => {
 });
 
 // Route for employee list
-app.get("/employee", async(req, res) => {
+app.get("/employee", (req, res) => {
     EmpDetails.find((err, data) => {
         if (!err) {
             res.render("employee", {
@@ -104,8 +107,8 @@ app.post("/uemp", urlencodedParser, (req, res) => {
     const empAddress = req.body.address;
     const empExperience = req.body.exp;
 
-    console.log(_id);
-    EmpDetails.findOneAndUpdate({ _id }, {
+    EmpDetails.
+    findOneAndUpdate({
             $set: {
                 empName: empName,
                 empEmail: empEmail,
@@ -139,6 +142,6 @@ app.get("/delete/:id", (req, res) => {
 });
 
 const port = process.env.PORT || 8000;
-app.listen(port, () => {
-    console.log("listening");
+ap p.listen(port, () => {
+    c
 });
