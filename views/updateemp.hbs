@@ -16,11 +16,7 @@
 <body>
 
 
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Codefreak</span>
-        </div>
-    </nav>
+    {{>navbar}}
 
     <div class="container mt-4">
         <form action="/uemp" method="POST">
@@ -43,9 +39,9 @@
                     placeholder="Contact number" value={{this.empNumber}}>
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Age</label>
-                <input type="text" class="form-control" name="age" id="exampleFormControlInput1" placeholder="Age"
-                    value="{{this.empAge}}">
+                <label for="exampleFormControlInput1" class="form-label">Password</label>
+                <input type="text" class="form-control" name="pass" id="exampleFormControlInput1" placeholder="Password"
+                    value="{{this.empPass}}">
             </div>
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Address</label>
@@ -74,6 +70,14 @@
         // set address via js
         const address = document.getElementById("add").value;
         document.getElementById('txtarea').value = address;
+
+        const login = document.getElementById("login");
+        const reg = document.getElementById("reg");
+        let cookie = document.cookie;
+        if (cookie.split(";")[1] != undefined) {
+            login.style.display = "none";
+            reg.style.display = "none";
+        }
     </script>
     <!-- Optional JavaScript; choose one of the two! -->
 

@@ -16,11 +16,8 @@
 <body>
 
 
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Codefreak</span>
-        </div>
-    </nav>
+    {{>navbar}}
+
     <div class="container mt-4">
         <form action="/register" method="POST">
         <div class="mb-3">
@@ -36,8 +33,8 @@
             <input type="text" class="form-control" name="number" id="exampleFormControlInput1" placeholder="Contact number">
         </div>
         <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Age</label>
-            <input type="text" class="form-control" name="age" id="exampleFormControlInput1" placeholder="Age">
+            <label for="exampleFormControlInput1" class="form-label">Password</label>
+            <input type="password" class="form-control" name="pass" id="exampleFormControlInput1" placeholder="Password">
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Address</label>
@@ -55,6 +52,21 @@
     </form>
 
     </div>
+
+    
+        <script>
+        const logout = document.getElementById("logout");
+        const emp = document.getElementById("empl");
+        const reg = document.getElementById("reg");
+        let cookie = document.cookie;
+        if (!(cookie.split(";")[1] != undefined)) {
+            emp.style.display = "none"
+            logout.style.display = "none"
+        }
+        
+    </script>
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

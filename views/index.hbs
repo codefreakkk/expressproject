@@ -15,19 +15,31 @@
 
 <body>
 
-
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h1">Codefreak</span>
-        </div>
-    </nav>
-    
-    <p><a href="/registration">register</a></p>
-    <p><a href="/employee">Employee List</a></p>
+    {{>navbar}}
     {{#if registered}}
-    <h3>{{registered}}</h3> 
+    <h3>{{registered}}</h3>
     {{else}}
     {{/if}}
+
+
+
+    <script>
+        
+        const login = document.getElementById("login");
+        const reg = document.getElementById("reg");
+        const emp = document.getElementById("empl")
+        const logout = document.getElementById("logout")
+        let cookie = document.cookie;
+        if (cookie.split(";")[1] != undefined) {
+            login.style.display = "none";
+            reg.style.display = "none";
+        }else {
+            emp.style.display = "none"
+            logout.style.display = "none"
+        }
+    </script>
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
