@@ -51,7 +51,6 @@ app.get("/registration", beforeauth, (req, res) => {
 app.post("/register", urlencodedParser, async(req, res) => {
     const empName = req.body.uname;
     const empEmail = req.body.email;
-    const empNumber = req.body.number;
     const empPass = req.body.pass;
     const empAddress = req.body.address;
     const empExperience = req.body.exp + "yr";
@@ -59,7 +58,6 @@ app.post("/register", urlencodedParser, async(req, res) => {
     const data = new EmpDetails({
         empName,
         empEmail,
-        empNumber,
         empPass,
         empAddress,
         empExperience,
@@ -117,7 +115,6 @@ app.post("/uemp", urlencodedParser, auth, (req, res) => {
     const _id = req.body.empId;
     const empName = req.body.uname;
     const empEmail = req.body.email;
-    const empNumber = req.body.number;
     const empPass = req.body.pass;
     const empAddress = req.body.address;
     const empExperience = req.body.exp;
@@ -126,7 +123,6 @@ app.post("/uemp", urlencodedParser, auth, (req, res) => {
             $set: {
                 empName: empName,
                 empEmail: empEmail,
-                empNumber: empNumber,
                 empPass: empPass,
                 empAddress: empAddress,
                 empExperience: empExperience,
