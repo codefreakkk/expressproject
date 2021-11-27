@@ -30,7 +30,7 @@
         const emp = document.getElementById("empl")
         const logout = document.getElementById("logout")
         let cookie = document.cookie;
-        if (cookie.split(";")[1] != undefined) {
+        if (cookie.split("=")[1] != undefined) {
             login.style.display = "none";
             reg.style.display = "none";
         }else {
