@@ -28,6 +28,7 @@ schema.methods.generateToken = async function() {
     }
 };
 
+// creating document
 const EmpDetails = new mongoose.model("EmpDetails", schema);
 
 module.exports = EmpDetails;

@@ -4,17 +4,20 @@ require("./model/dbcon");
 const auth = require("./middleware/auth");
 const beforeauth = require("./middleware/beforeauth");
 const EmpDetails = require("./model/schema");
+const Files = require("./model/fileSchema");
 const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const jwt = require("jsonwebtoken");
 const path = require("path");
 const hbs = require("hbs");
 let cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
 
 const partialsPath = path.join(__dirname, "./partials");
 
 app.use(cookieParser());
 app.set("view engine", "hbs");
+app.use(fileUpload());
 hbs.registerPartials("partials", partialsPath);
 
 // Route for home page
@@ -149,6 +152,38 @@ app.get("/delete/:id", (req, res) => {
             res.send("Some Error Occured");
         }
     });
+});
+
+// Route for file uploading
+app.get("/upload", (req, res) => {
+    res.render("uploadfile");
+});
+
+app.post("/uploadfile", (req, res) => {
+    if (!req.files) {
+        // if file upload fails
+        res.render("uploadfile", {
+            errormsg: "File Not Uploaded",
+        });
+    } else {
+        const file = req.files.myfile;
+        const fileSize = file.size;
+        const allowedSize = 30000000;
+        const extension = path.extname(file.name);
+        file.name =
+            "file" + Date.now() + Math.floor(Math.random() * 100) + extension;
+        const uploadPath = path.join(__dirname, "/uploads", `/${file.name}`);
+        // move file to upload folder
+        if (fileSize < allowedSize) {
+            file.mv(uploadPath, (err) => {
+                if (err) return res.status(500).send("File Not Uploaded");
+                res.redirect("/?i=true");
+            });
+        } else {
+            res.send("Your file should be less than 30MB");
+            console.log("file size exceded");
+        }
+    }
 });
 
 // Render login page
