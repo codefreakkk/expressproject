@@ -6,6 +6,8 @@ mongoose
         "mongodb+srv://harshsaid558:harshsaid12@cluster0.s0krn.mongodb.net/Cluster0?retryWrites=true&w=majority", {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            useCreateIndex: true,
+            useFindAndModify: true,
         }
     )
     .then(() => {
