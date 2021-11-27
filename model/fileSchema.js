@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const fileSchema = mongoose.Schema({
-    empID: Number,
+    empID: String,
     fileURL: String,
 });
 

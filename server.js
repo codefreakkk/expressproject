@@ -132,7 +132,7 @@ app.post("/uemp", urlencodedParser, auth, (req, res) => {
             },
         },
         (err, data) => {
-            console.log(data);
+            // console.log(data);
             if (!err) {
                 res.redirect("/?u=true");
             } else {
@@ -155,11 +155,12 @@ app.get("/delete/:id", (req, res) => {
 });
 
 // Route for file uploading
-app.get("/upload", (req, res) => {
+app.get("/upload", auth, (req, res) => {
     res.render("uploadfile");
 });
 
-app.post("/uploadfile", (req, res) => {
+// Route for uploading file into db
+app.post("/uploadfile", auth, (req, res) => {
     if (!req.files) {
         // if file upload fails
         res.render("uploadfile", {
@@ -177,13 +178,60 @@ app.post("/uploadfile", (req, res) => {
         if (fileSize < allowedSize) {
             file.mv(uploadPath, (err) => {
                 if (err) return res.status(500).send("File Not Uploaded");
-                res.redirect("/?i=true");
+                const id = req.user._id.toString();
+                const data = new Files({
+                    empID: id,
+                    fileURL: `uploads/${file.name}`,
+                });
+                data.save(data, (err, data) => {
+                    if (err) {
+                        console.log("Not inserted");
+                        res.send("Data Not Inserted");
+                    } else {
+                        console.log("Inserted");
+                        res.redirect("/?u=true");
+                    }
+                });
             });
         } else {
             res.send("Your file should be less than 30MB");
             console.log("file size exceded");
         }
     }
+});
+
+// Route for displaying users file
+app.get("/myfiles", auth, (req, res) => {
+    try {
+        const id = req.user._id.toString();
+
+        Files.find({ empID: id }, (err, data) => {
+            if (!err) {
+                if (data.length > 0) {
+                    res.render("myfiles", {
+                        data: data,
+                    });
+                } else {
+                    res.render("myfiles");
+                }
+            } else {
+                res.send("Error in Fetching file from Server");
+            }
+        });
+    } catch (err) {
+        res.send("Some Error Occured My Space Section");
+    }
+});
+
+app.get("/download/:fileid", auth, (req, res) => {
+    const fileid = req.params.fileid;
+    Files.findOne({ _id: fileid }, (err, data) => {
+        if (!err) {
+            res.download(data.fileURL);
+        } else {
+            res.send("Some Error occured");
+        }
+    });
 });
 
 // Render login page
