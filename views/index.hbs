@@ -28,6 +28,7 @@
         const login = document.getElementById("login");
         const reg = document.getElementById("reg");
         const space = document.getElementById("space");
+        const upload = document.getElementById("upload");
         const logout = document.getElementById("logout")
         let cookie = document.cookie;
         if (cookie.split("=")[1] != undefined) {
@@ -36,6 +37,7 @@
         }else {
             logout.style.display = "none"
             space.style.display = "none"
+            upload.style.display = "none"
         }
     </script>
 
