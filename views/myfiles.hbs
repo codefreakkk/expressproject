@@ -38,6 +38,23 @@
     </div>
 
 
+
+    <script>
+
+        const login = document.getElementById("login");
+        const reg = document.getElementById("reg");
+        const logout = document.getElementById("logout")
+        let cookie = document.cookie;
+        if (cookie.split("=")[1] != undefined) {
+            login.style.display = "none";
+            reg.style.display = "none";
+        } else {
+            logout.style.display = "none"
+        }
+
+    </script>
+
+
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
