@@ -168,6 +168,7 @@ app.post("/uploadfile", auth, (req, res) => {
         });
     } else {
         const file = req.files.myfile;
+        const filen = req.body.filename;
         const fileSize = file.size;
         const allowedSize = 30000000;
         const extension = path.extname(file.name);
@@ -182,6 +183,7 @@ app.post("/uploadfile", auth, (req, res) => {
                 const data = new Files({
                     empID: id,
                     fileURL: `uploads/${file.name}`,
+                    fileName: filen,
                 });
                 data.save(data, (err, data) => {
                     if (err) {
@@ -259,7 +261,7 @@ app.post("/securelogin", urlencodedParser, async(req, res) => {
             res.cookie("jwt", token, {
                 expires: new Date(Date.now() + 5000000),
             });
-            res.redirect("/employee");
+            res.redirect("/myfiles");
             console.log("Logged in");
         } else {
             console.log("Pass incorrect");

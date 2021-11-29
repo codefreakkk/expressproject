@@ -5,7 +5,7 @@ const beforeauth = async(req, res, next) => {
     try {
         const token = req.cookies.jwt;
         const verify = jwt.verify(token, "codefreak.co.in");
-        res.redirect("/employee");
+        res.redirect("/myfiles");
     } catch (err) {
         next();
         console.log("Auth err " + err);
