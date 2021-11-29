@@ -27,15 +27,15 @@
         
         const login = document.getElementById("login");
         const reg = document.getElementById("reg");
-        const emp = document.getElementById("empl")
+        const space = document.getElementById("space");
         const logout = document.getElementById("logout")
         let cookie = document.cookie;
         if (cookie.split("=")[1] != undefined) {
             login.style.display = "none";
             reg.style.display = "none";
         }else {
-            emp.style.display = "none"
             logout.style.display = "none"
+            space.style.display = "none"
         }
     </script>
 
