@@ -236,6 +236,12 @@ app.get("/download/:fileid", auth, (req, res) => {
     });
 });
 
+// Route for deleting files
+app.get("/deletefile/:id", (req, res) => {
+    const id = req.params.id;
+    res.send(id);
+});
+
 // Render login page
 app.get("/login", beforeauth, (req, res) => {
     const flag = req.query.incorrect;
